@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrappGo - Doorstep Scrap Pickup</title>
+    <link rel="stylesheet" href="/CSS/index.css">
+</head>
+<body>
+
+    <!-- 1. LOGIN POPUP OVERLAY -->
+    <div id="loginModal" class="login-overlay">
+        <div class="login-card">
+            <h2>Welcome to ScrappGo 🍃</h2>
+            <p class="login-subtitle">Please enter your details to personalize your account and pickup orders.</p>
+            
+            <form onsubmit="handleUserLogin(event)">
+                <label>Your Full Name</label>
+                <input type="text" id="userNameInput" placeholder="Enter your full name" required>
+
+                <label>Email Address</label>
+                <input type="email" id="userEmailInput" placeholder="e.g. name@example.com" required>
+
+                <label>City / Locality</label>
+                <input type="text" id="userCityInput" placeholder="e.g. Model Town, Ludhiana" required>
+
+                <label>Phone Number</label>
+                <input type="text" id="userPhoneInput" placeholder="10-digit mobile number" required>
+
+                <button type="submit" class="btn-login-submit">Enter ScrappGo &rarr;</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. NAVIGATION BAR -->
+    <header class="top-nav">
+        <div class="logo">ScrappGo</div>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="#rates">Scrap Rates</a>
+            <a href="rewards.html">Calculator</a>
+            <a href="bookings.html">Book a Pickup</a>
+            <a href="dashboard.html">Dashboard</a>
+            <span id="navUserDisplay" style="margin-left: 20px; font-weight: bold; color: #1b5e3b;"></span>
+            <button id="logoutBtn" onclick="logout()" style="display: none; background: none; border: 1px solid #ccc; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-left: 8px; font-size: 12px;">Logout</button>
+        </nav>
+    </header>
+
+    <!-- 3. HERO BANNER -->
+    <section class="hero">
+        <div class="hero-left">
+            <h1>Say hello to a <br><span>cleaner home.</span></h1>
+            <p>Schedule a free doorstep pickup of newspapers, cardboard, metal, plastic, and e-waste. We keep reusable items out of landfills — and pay you instant cash.</p>
+            
+            <div class="hero-buttons">
+                <a href="bookings.html" class="btn-green">Schedule Free Pickup &rarr;</a>
+                <a href="rewards.html" class="btn-outline">Calculate Earnings &rarr;</a>
+            </div>
+
+            <div class="served-box">
+                <span class="avatars">👩🏽 👨🏻 👩🏻 🧔🏽</span>
+                <div>
+                    <strong>5,000+</strong>
+                    <p>Households Served </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="speech-bubble" id="mascotText">
+                Ready to clear that clutter? Let's go! 
+            </div>
+            <div class="mascot-circle" onclick="changeTip()">
+                <div class="mascot-emoji">🗑️🌱</div>
+                <p>Click me for a tip!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SCRAP RATES SECTION -->
+    <main class="container" id="rates">
+        <div class="rates-header">
+            <div>
+                <h2>Overview & Daily Scrap Rate Chart </h2>
+                <p class="subtitle">Transparent, guaranteed doorstep pricing updated daily </p>
+            </div>
+            <div class="live-status">
+                <span class="live-dot"></span> Rates Active for Today
+            </div>
+        </div>
+
+        <!-- 4 Top Metric Highlights -->
+        <div class="card-row">
+            <div class="waste-card border-blue">
+                <div class="card-top">
+                    <span class="category-tag blue-tag">Paper</span>
+                    <span class="icon">📰</span>
+                </div>
+                <h3>150 kg </h3>
+                <p>Recyclable Paper & Cartons </p>
+            </div>
+            <div class="waste-card border-dark">
+                <div class="card-top">
+                    <span class="category-tag dark-tag">Metals</span>
+                    <span class="icon">🔩</span>
+                </div>
+                <h3>325 kg </h3>
+                <p>Heavy Iron, Tins & Utensils </p>
+            </div>
+            <div class="waste-card border-green">
+                <div class="card-top">
+                    <span class="category-tag green-tag">Plastics</span>
+                    <span class="icon">🧴</span>
+                </div>
+                <h3>210 kg </h3>
+                <p>Clean PET Bottles & Jars </p>
+            </div>
+            <div class="waste-card border-red">
+                <div class="card-top">
+                    <span class="category-tag red-tag">E-Waste</span>
+                    <span class="icon">🔌</span>
+                </div>
+                <h3>85 kg</h3>
+                <p>Electronics & Appliances </p>
+            </div>
+        </div>
+
+        <!-- Interactive Scrap Rate Table Box -->
+        <div class="table-box">
+            <div class="table-top-bar">
+                <h3>Daily Scrap Rate Chart (Price per Kg) </h3>
+                
+                <!-- Search Filter Input -->
+                <div class="search-wrap">
+                    <input type="text" id="scrapSearch" placeholder="🔍 Search scrap item..." onkeyup="filterScrapTable()">
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-pills">
+                <button class="pill active" onclick="filterCategory('all', this)">All Materials</button>
+                <button class="pill" onclick="filterCategory('paper', this)">Paper</button>
+                <button class="pill" onclick="filterCategory('metal', this)">Metals</button>
+                <button class="pill" onclick="filterCategory('plastic', this)">Plastics</button>
+                <button class="pill" onclick="filterCategory('ewaste', this)">E-Waste</button>
+            </div>
+
+            <table id="ratesTable">
+                <thead>
+                    <tr>
+                        <th>Scrap Category </th>
+                        <th>Accepted Items </th>
+                        <th>Price per Kg </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-cat="paper">
+                        <td><strong>📰 Old Newspapers </strong></td>
+                        <td>Newspapers, magazines, office paper, notebooks </td>
+                        <td><span class="price-pill">₹15 / kg </span></td>
+                        <td><a href="bookings.html" class="table-btn">Book &rarr;</a></td>
+                    </tr>
+                    <tr data-cat="paper">
+                        <td><strong>📦 Cardboard Packaging </strong></td>
+                        <td>Delivery carton boxes, brown corrugated boxes </td>
+                        <td><span class="price-pill">₹10 / kg </span></td>
+                        <td><a href="bookings.html" class="table-btn">Book &rarr;</a></td>
+                    </tr>
+                    <tr data-cat="metal">
+                        <td><strong>🔩 Iron & Heavy Metal </strong></td>
+                        <td>Pipes, rebar rods, tin sheets, metal containers </td>
+                        <td><span class="price-pill">₹30 / kg</span></td>
+                        <td><a href="bookings.html" class="table-btn">Book &rarr;</a></td>
+                    </tr>
+                    <tr data-cat="metal">
+                        <td><strong>🥫 Aluminium & Cans</strong></td>
+                        <td>Soda beverage cans, window frames, utensils </td>
+                        <td><span class="price-pill">₹110 / kg</span></td>
+                        <td><a href="bookings.html" class="table-btn">Book &rarr;</a></td>
+                    </tr>
+                    <tr data-cat="plastic">
+                        <td><strong>🧴 Plastic Bottles & PET</strong></td>
+                        <td>Water bottles, detergent jugs, hard plastic buckets</td>
+                        <td><span class="price-pill">₹12 / kg</span></td>
+                        <td><a href="bookings.html" class="table-btn">Book &rarr;</a></td>
+                    </tr>
+                    <tr data-cat="ewaste">
+                        <td><strong>🔌 Electronic Scrap (E-Waste)</strong></td>
+                        <td>Old laptops, motherboards, chargers, cables, CPUs</td>
+                        <td><span class="price-pill">₹45 / kg</span></td>
+                        <td><a href="bookings.html" class="table-btn">Book &rarr;</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ScrappGo | Making Recycling Rewarding</p>
+    </footer>
+
+    <script src="/JavaScript/index.js"></script>
+</body>
+</html>

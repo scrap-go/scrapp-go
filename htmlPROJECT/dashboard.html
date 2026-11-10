@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrappGo - Customer Dashboard</title>
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="logo">ScrappGo</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#rates">Scrap Rates</a>
+            <a href="rewards.html">Calculator</a>
+            <a href="bookings.html">Book a Pickup</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+        </nav>
+    </header>
+
+    <!-- Header Banner -->
+    <section class="banner">
+        <h1>Customer Dashboard</h1>
+        <p>Track and manage your scrap pickup requests.</p>
+    </section>
+
+    <!-- Main Workspace -->
+    <main class="dashboard-container">
+        
+        <!-- Metric Cards Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <p>Total Bookings</p>
+                <h2 id="totalCount">0</h2>
+            </div>
+            <div class="metric-card">
+                <p>Pending Pickups</p>
+                <h2 id="pendingCount">0</h2>
+            </div>
+            <div class="metric-card">
+                <p>Completed Pickups</p>
+                <h2 id="completedCount">0</h2>
+            </div>
+        </div>
+
+        <!-- Pickup History Section -->
+        <!-- Pickup History Header with Button aligned side-by-side -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 class="section-title" style="margin-bottom: 0;">Your Pickup History</h2>
+            <button class="btn-cancel" onclick="clearAllHistory()" style="margin-top: 0; padding: 8px 16px;">🗑️ Clear All History</button>
+        </div>
+
+        <!-- Single Empty Message -->
+        <p id="noBookingsMsg" style="color: #666; font-size: 15px; margin-bottom: 20px;">No pickups booked yet. Head to "Book a Pickup" to schedule one!</p>
+
+        <!-- Dynamic Container for bookings -->
+        <div id="historyList"></div>
+
+    
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ScrappGo | Making Recycling Rewarding</p>
+    </footer>
+
+    <script src="../JavaScript/dashboard.js"></script>
+</body>
+</html>

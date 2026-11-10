@@ -1,0 +1,187 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrappGo - Book a Pickup</title>
+    <link rel="stylesheet" href="../CSS/bookings.css">
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // REPLACE WITH YOUR ACTUAL EMAILJS PUBLIC KEY
+            emailjs.init("TQF6UFbWFcJKTRdgM");
+        })();
+    </script>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="logo">ScrappGo</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#rates">Scrap Rates</a>
+            <a href="rewards.html">Calculator</a>
+            <a href="bookings.html" class="active">Book a Pickup</a>
+            <a href="dashboard.html">Dashboard</a>
+            <span id="navUserBadge" style="margin-left: 20px; font-weight: bold; color: #1b5e3b;"></span>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <h1>Schedule Your Scrap Pickup</h1>
+        <p>Doorstep collection with certified digital weighing and instant cash payout.</p>
+    </section>
+
+    <main class="form-container">
+        
+        <!-- Helpful Prep Guide Card -->
+        <div class="info-banner">
+            <div class="info-icon">💡</div>
+            <div>
+                <strong>How to prepare your scrap:</strong>
+                <p>Keep papers tied or boxed. Segregate metal and e-waste. Our verified agent brings an ISO-certified digital weighing scale to your doorstep.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>1. Contact & Location Information</h2>
+            
+            <div class="row-2">
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your name" required>
+                </div>
+                <div>
+                    <label>Phone Number</label>
+                    <input type="text" id="phone" placeholder="10-digit mobile number" required>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Email Address (For Confirmation & Updates)</label>
+                <input type="email" id="email" placeholder="e.g. name@example.com" required>
+            </div>
+
+            <label style="margin-top: 14px;">Complete Doorstep Pickup Address</label>
+            <textarea id="address" rows="2" placeholder="House/Flat No., Street, Landmark, City" required></textarea>
+
+            <h2 style="margin-top: 30px;">2. Scrap Category & Estimated Load</h2>
+            <p class="section-desc">Select all materials you want collected:</p>
+
+            <div class="scrap-checklist">
+                <label class="check-item">
+                    <input type="checkbox" value="Old Newspapers & Books" class="scrap-check" checked>
+                    <span>📰 Newspapers & Books (₹15/kg)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" value="Cardboard Packaging" class="scrap-check">
+                    <span>📦 Cardboard Cartons (₹10/kg)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" value="Iron & Metal Scrap" class="scrap-check">
+                    <span>🔩 Iron & Heavy Metal (₹30/kg)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" value="Plastic Bottles" class="scrap-check">
+                    <span>🧴 Plastic Bottles & PET (₹12/kg)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" value="E-Waste & Appliances" class="scrap-check">
+                    <span>🔌 E-Waste & Cables (₹45/kg)</span>
+                </label>
+            </div>
+
+            <label style="margin-top: 15px;">Approximate Total Weight</label>
+            <select id="estWeight" required>
+                <option value="Under 10 kg">Small Load (Under 10 kg)</option>
+                <option value="10 - 30 kg" selected>Medium Load (10 - 30 kg)</option>
+                <option value="30 - 60 kg">Large Household Clearance (30 - 60 kg)</option>
+                <option value="Above 60 kg (Bulk Commercial)">Bulk Scrap (Above 60 kg)</option>
+            </select>
+
+            <h2 style="margin-top: 30px;">3. Preferred Schedule</h2>
+            <div class="row-2">
+                <div>
+                    <label>Pickup Date</label>
+                    <input type="date" id="pickupDate" required>
+                    <script>
+    // Enforce minimum date immediately on render
+    (function() {
+        var today = new Date().toISOString().split("T")[0];
+        var picker = document.getElementById("pickupDate");
+        if (picker) {
+            picker.min = today;
+            if (!picker.value) picker.value = today;
+        }
+    })();
+</script>
+                </div>
+                <div>
+                    <label>Time Slot</label>
+                    <select id="pickupTime" required>
+                        <option value="9 AM - 12 PM">Morning (9:00 AM - 12:00 PM)</option>
+                        <option value="12 PM - 3 PM" selected>Afternoon (12:00 PM - 3:00 PM)</option>
+                        <option value="3 PM - 6 PM">Evening (3:00 PM - 6:00 PM)</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Driver / Gate Instructions (Optional)</label>
+            <textarea id="instructions" rows="2" placeholder="e.g. Ring the bell on 2nd floor, lift available"></textarea>
+
+            <button class="btn-submit" type="button" onclick="submitBooking()">Confirm Pickup Request &rarr;</button>
+        </div>
+    </main>
+
+    <!-- RECEIPT MODAL POPUP -->
+    <div id="receiptModal" class="receipt-backdrop" style="display: none;">
+        <div class="receipt-box" id="printableReceipt">
+            <div class="receipt-header">
+                <h3>ScrapGo Official Pickup Slip</h3>
+                <span class="booking-badge">CONFIRMED</span>
+            </div>
+            
+            <p class="receipt-id">Booking ID: <strong id="rcpId"></strong></p>
+            <hr class="receipt-divider">
+
+            <div class="receipt-details">
+                <p><strong>Customer:</strong> <span id="rcpName"></span></p>
+                <p><strong>Phone:</strong> <span id="rcpPhone"></span></p>
+                <p><strong>Email:</strong> <span id="rcpEmail"></span></p>
+                <p><strong>Address:</strong> <span id="rcpAddress"></span></p>
+                <p><strong>Scheduled Slot:</strong> <span id="rcpSlot"></span></p>
+                <p><strong>Materials:</strong> <span id="rcpMaterials"></span></p>
+                <p><strong>Weight Tier:</strong> <span id="rcpWeight"></span></p>
+            </div>
+
+            <div class="receipt-agent-box">
+                <p><strong>Assigned Agent:</strong> Rajesh Kumar (ScrappGo Hub)</p>
+                <small>Certified Digital Weighing Scale Operator</small>
+            </div>
+
+            <!-- Automated Status Indicator -->
+            <div style="background: #eef7ee; border: 1px solid #c2e2cc; color: #1b5e3b; padding: 10px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 20px;">
+                ✅ <strong>Confirmation Sent:</strong> A booking receipt has been sent to your email address automatically.
+            </div>
+
+            <!-- Modal Action Buttons for Customer -->
+            <div class="receipt-actions no-print" style="display: flex; gap: 10px;">
+                <button class="btn-print" type="button" onclick="window.print()" style="flex: 1;">🖨️ Print Slip</button>
+                <a href="dashboard.html" class="btn-dash" style="flex: 1; text-align: center;">View Dashboard &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ScrappGo | Making Recycling Rewarding</p>
+    </footer>
+
+    <script src="../JavaScript/bookings.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f6faf6;
+    color: #1f3a29;
+}
+
+/* Nav */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: white;
+    border-bottom: 1px solid #e2ece2;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1b5e3b;
+}
+
+.top-nav nav a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 25px;
+    font-size: 15px;
+}
+
+.top-nav nav a.active {
+    color: #1b5e3b;
+    font-weight: bold;
+}
+
+/* Banner */
+.banner {
+    background: #eaf4ec;
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 1px solid #d0e8d4;
+}
+
+.banner h1 {
+    font-size: 34px;
+    color: #1b5e3b;
+    margin-bottom: 8px;
+}
+
+.banner p {
+    color: #555;
+    font-size: 15px;
+}
+
+/* Layout */
+.calculator-container {
+    max-width: 950px;
+    margin: 35px auto 60px;
+    padding: 0 20px;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e2ece2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.card h2 {
+    color: #1b5e3b;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.form-desc, .result-desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #2c4c38;
+    margin-bottom: 6px;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccdcd0;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fbfdfb;
+}
+
+.btn-calculate {
+    width: 100%;
+    background: #1b5e3b;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.btn-calculate:hover {
+    background: #14462c;
+}
+
+.error-text {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Output column */
+.items-list {
+    min-height: 120px;
+    background: #fbfdfb;
+    border: 1px dashed #ccdcd0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.empty-message {
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    margin-top: 45px;
+}
+
+.added-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.total-section {
+    background: #eaf4ec;
+    border: 1px solid #cce5d2;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.total-section span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.total-section h1 {
+    font-size: 32px;
+    color: #1b5e3b;
+    margin-top: 4px;
+}
+
+.calc-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-reset {
+    flex: 1;
+    background: white;
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 11px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-reset:hover {
+    background: #f1f1f1;
+}
+
+.btn-book {
+    flex: 1.5;
+    background: #1b5e3b;
+    color: white;
+    text-decoration: none;
+    padding: 11px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+}
+
+.btn-book:hover {
+    background: #14462c;
+}
+
+.calculator-note {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    margin-top: 25px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #133321;
+    color: #a3c9b4;
+    font-size: 14px;
+}

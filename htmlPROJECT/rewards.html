@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrap Calculator | ScrappGo</title>
+    <link rel="stylesheet" href="../CSS/rewards.css">
+</head>
+
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="logo">ScrappGo</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#rates">Scrap Rates</a>
+            <a href="rewards.html" class="active">Calculator</a>
+            <a href="bookings.html">Book a Pickup</a>
+            <a href="dashboard.html">Dashboard</a>
+            <span id="navUserBadge" style="margin-left: 20px; font-weight: bold; color: #1b5e3b;"></span>
+        </nav>
+    </header>
+
+    <!-- Calculator Banner -->
+    <section class="banner">
+        <h1>Calculate the Value of Your Scrap</h1>
+        <p>Select your recyclable materials, enter their weight, and discover your estimated earnings.</p>
+    </section>
+
+    <!-- Main Calculator Workspace -->
+    <main class="calculator-container">
+
+        <div class="calc-grid">
+
+            <!-- Input Box -->
+            <div class="card form-box">
+                <h2>Your Scrap Details</h2>
+                <p class="form-desc">Add the materials you want to sell.</p>
+
+                <div class="form-group">
+                    <label for="material">Select Material</label>
+                    <select id="material">
+                        <option value="">Choose a material</option>
+                        <option value="15">Old Newspapers - ₹15/kg</option>
+                        <option value="10">Cardboard - ₹10/kg</option>
+                        <option value="30">Iron / Metal Scrap - ₹30/kg</option>
+                        <option value="12">Plastic Bottles - ₹12/kg</option>
+                        <option value="45">E-Waste - ₹45/kg</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="weight">Enter Weight (KG)</label>
+                    <input type="number" id="weight" placeholder="Example: 5" min="0.1" step="0.1">
+                </div>
+
+                <button id="addMaterial" class="btn-calculate" onclick="addMaterialItem()">
+                    + Add Material
+                </button>
+
+                <p id="errorMessage" class="error-text"></p>
+            </div>
+
+            <!-- Estimated Value Card -->
+            <div class="card result-box">
+                <h2>Your Estimated Earnings</h2>
+                <p class="result-desc">Your selected materials will appear here:</p>
+
+                <div id="materialList" class="items-list">
+                    <p class="empty-message" id="emptyMsg">No materials added yet.</p>
+                </div>
+
+                <div class="total-section">
+                    <span>Total Estimated Value</span>
+                    <h1 id="totalAmount">₹0</h1>
+                </div>
+
+                <div class="calc-buttons">
+                    <button id="resetCalculator" class="btn-reset" onclick="resetCalculator()">
+                        Reset Calculator
+                    </button>
+                    <a href="bookings.html" class="btn-book">
+                        Proceed to Book Pickup &rarr;
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="calculator-note">
+            Note: These are illustrative rates matching our daily scrap rate chart. Actual earnings are finalized upon digital doorstep weighing.
+        </p>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 ScrappGo | Making Recycling Rewarding</p>
+    </footer>
+
+    <script src="../JavaScript/rewards.js"></script>
+
+</body>
+
+</html>
